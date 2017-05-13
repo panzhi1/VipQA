@@ -37,7 +37,7 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
         GsonRequest<QuestionPreview> gsonRequest = new GsonRequest<QuestionPreview>(com.android.volley.Request.Method.POST,
-                "http://222.20.30.194:8080/VipQA/PreviewServlet",QuestionPreview.class ,hashMap,
+                "http://www.strange-man.cn/pz/PreviewServlet",QuestionPreview.class ,hashMap,
                 new Response.Listener<QuestionPreview>() {
                     @Override
                     public void onResponse(QuestionPreview response) {
@@ -60,11 +60,10 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
         GsonRequest<QuestionMethod> gsonRequest = new GsonRequest<QuestionMethod>(Request.Method.POST,
-                "http://222.20.30.194:8080/VipQA/AllQuestionServlet",QuestionMethod.class ,hashMap,
+                "http://www.strange-man.cn/pz/AllQuestionServlet",QuestionMethod.class ,hashMap,
                 new Response.Listener<QuestionMethod>() {
                     @Override
                     public void onResponse(QuestionMethod response) {
-
                         callback.onSuccess(response);
 
                     }
@@ -78,17 +77,15 @@ public class MyRequest {
 
         this.mqueue.add(gsonRequest);
     }
-    public void getQuestionInfo( final VolleyCallback<Question> callback,String productId,String questionId) {
+    public void getQuestionInfo( final VolleyCallback<Question> callback,String questionId) {
 
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("productId",productId);
         hashMap.put("questionId",questionId);
         GsonRequest<Question> gsonRequest = new GsonRequest<Question>(Request.Method.POST,
-                "http://222.20.30.194:8080/VipQA/FristServlet",Question.class ,hashMap,
+                "http://www.strange-man.cn/pz/QuestionInfoServlet",Question.class ,hashMap,
                 new Response.Listener<Question>() {
                     @Override
                     public void onResponse(Question response) {
-
                         callback.onSuccess(response);
 
                     }
