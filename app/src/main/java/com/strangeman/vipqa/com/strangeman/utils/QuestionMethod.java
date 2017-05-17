@@ -1,4 +1,6 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.utils;
+
+import com.strangeman.vipqa.com.strangeman.entity.Question;
 
 import java.util.List;
 

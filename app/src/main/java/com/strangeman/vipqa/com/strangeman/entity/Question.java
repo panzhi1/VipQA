@@ -1,7 +1,4 @@
-package com.strangeman.vipqa;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+package com.strangeman.vipqa.com.strangeman.entity;
 
 /**
  * Created by panzhi on 2017/5/8.

@@ -1,18 +1,18 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import com.strangeman.vipqa.com.strangeman.network.MyRequest;
+import com.strangeman.vipqa.R;
+import com.strangeman.vipqa.com.strangeman.utils.VolleyCallback;
+import com.strangeman.vipqa.com.strangeman.entity.QuestionPreview;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener{
     private TextView mainQAView_1;
     private TextView mainQAView_2;
     private TextView mainQAView_1Num;
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mainQAView_1 = (TextView)findViewById(R.id.mainQA_1);
         mainQAView_2 = (TextView)findViewById(R.id.mainQA_2);
         mainQAView_1Num=(TextView)findViewById(R.id.mainQA_1_num);

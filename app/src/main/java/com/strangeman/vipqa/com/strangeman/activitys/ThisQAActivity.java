@@ -1,9 +1,9 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +12,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.strangeman.vipqa.com.strangeman.adapter.AnswerAdapter;
+import com.strangeman.vipqa.com.strangeman.network.MyRequest;
+import com.strangeman.vipqa.com.strangeman.network.PostInfo;
+import com.strangeman.vipqa.R;
+import com.strangeman.vipqa.com.strangeman.utils.VolleyCallback;
+import com.strangeman.vipqa.com.strangeman.entity.Answer;
+import com.strangeman.vipqa.com.strangeman.entity.Question;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +27,10 @@ import java.util.List;
  * Created by pilot on 2017/5/8.
  */
 
-public class ThisQAActivity extends AppCompatActivity implements View.OnClickListener{
+public class ThisQAActivity extends Activity implements View.OnClickListener{
     private List<Answer> answerList ;
     private AnswerAdapter adapter;
     private ImageButton back;
-    private ImageButton refresh;
     private MyRequest myRequest;
     private PostInfo postInfo;
     private String questionId;
@@ -46,8 +53,6 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         answerList=new ArrayList<>();
         back = (ImageButton)findViewById(R.id.this_back);
         back.setOnClickListener(this);
-        refresh = (ImageButton)findViewById(R.id.this_refresh);
-        refresh.setOnClickListener(this);
         userId="158695";
         adapter = new AnswerAdapter(ThisQAActivity.this, R.layout.answer_item, answerList);
         ListView listView = (ListView) findViewById(R.id.AllA);
@@ -85,8 +90,6 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.this_back:
                 Intent intent = new Intent(ThisQAActivity.this,AllQAActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.this_refresh:
                 break;
             case R.id.this_send:
 

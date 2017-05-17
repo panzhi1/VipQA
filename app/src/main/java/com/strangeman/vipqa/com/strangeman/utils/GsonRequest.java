@@ -1,4 +1,4 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.utils;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;

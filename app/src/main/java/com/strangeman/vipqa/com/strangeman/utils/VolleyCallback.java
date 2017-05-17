@@ -1,4 +1,4 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.utils;
 
 /**
  * Created by panzhi on 2017/5/10.

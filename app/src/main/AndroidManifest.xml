@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.strangeman.vipqa">
+    package="com.strangeman.vipqa"
+    >
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -9,18 +10,23 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <activity android:name=".com.strangeman.activitys.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ThisQAActivity"
-            android:windowSoftInputMode="adjustNothing|stateHidden"></activity>
-        <activity android:name=".AllQAActivity"
-            android:windowSoftInputMode="adjustNothing|stateHidden"></activity>
+        <activity android:name=".com.strangeman.activitys.ThisQAActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible"
+            android:launchMode="singleTask"
+            ></activity>
+        <activity android:name=".com.strangeman.activitys.AllQAActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible"
+            android:launchMode="singleTask"
+           ></activity>
     </application>
 
 </manifest>

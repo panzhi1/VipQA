@@ -1,57 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/back"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/back"
-        android:textSize="20sp"
-        android:text="@string/ask"
-        android:textColor="@color/black"/>
-
-    <ImageButton
-        android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/refresh"/>
-
-    <TextView
-        android:id="@+id/aboutGoods"
+    <RelativeLayout
+        android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/back"
-        android:layout_marginTop="10dp"
-        android:text="@string/aboutGoods"
-        android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:background="@drawable/background"
+        android:layout_weight="0.5">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/back"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="7dp"
+            android:textSize="25sp"
+            android:text="@string/ask"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
 
-    <ListView
-        android:id="@+id/allQA"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/aboutGoods"/>
+        android:layout_weight="10">
+        <TextView
+            android:id="@+id/aboutGoods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/aboutGoods"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/aboutGoods"
+        android:orientation="vertical"
+        android:id="@+id/swipeLayout" >
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/inputArea"
-        android:layout_marginTop="10dp"
-        android:background="@color/gray"/>
+        <ListView
+            android:id="@+id/allQA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/swipeLayout"
+            android:background="@color/gray"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/inputArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_weight="0.2">
         <EditText
             android:id="@+id/inputQuestion"
             android:layout_width="0dp"
@@ -72,4 +89,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

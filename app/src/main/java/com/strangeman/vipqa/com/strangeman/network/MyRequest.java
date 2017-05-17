@@ -1,4 +1,4 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.network;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -7,11 +7,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.strangeman.vipqa.com.strangeman.utils.GsonRequest;
+import com.strangeman.vipqa.com.strangeman.utils.QuestionMethod;
+import com.strangeman.vipqa.com.strangeman.utils.VolleyCallback;
+import com.strangeman.vipqa.com.strangeman.entity.Question;
+import com.strangeman.vipqa.com.strangeman.entity.QuestionPreview;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by panzhi on 2017/5/7.
@@ -32,7 +36,7 @@ public class MyRequest {
 
     }
 
-    public void getPreView( final VolleyCallback<QuestionPreview> callback,String productId) {
+    public void getPreView(final VolleyCallback<QuestionPreview> callback, String productId) {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
@@ -55,7 +59,7 @@ public class MyRequest {
 
         this.mqueue.add(gsonRequest);
     }
-    public void getAllQuestion( final VolleyCallback<QuestionMethod> callback,String productId) {
+    public void getAllQuestion(final VolleyCallback<QuestionMethod> callback, String productId) {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
@@ -99,7 +103,49 @@ public class MyRequest {
 
         this.mqueue.add(gsonRequest);
     }
+    public void getOrders(final VolleyCallback<List> callback,String userId){
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("userId",userId);
+        GsonRequest<List> gsonRequest = new GsonRequest<List>(Request.Method.POST,
+                "http://www.strange-man.cn/pz/AllOrderServlet",List.class ,hashMap,
+                new Response.Listener<List>() {
+                    @Override
+                    public void onResponse(List response) {
+                        callback.onSuccess(response);
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "网络出现问题", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        this.mqueue.add(gsonRequest);
+
+    }
+    public void getAllProduct( final VolleyCallback<List> callback){
+        HashMap<String, String> hashMap = new HashMap<>();
+        GsonRequest<List> gsonRequest = new GsonRequest<List>(Request.Method.POST,
+                "http://www.strange-man.cn/pz/AllProductServlet",List.class ,hashMap,
+                new Response.Listener<List>() {
+                    @Override
+                    public void onResponse(List response) {
+                        callback.onSuccess(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "网络出现问题", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        this.mqueue.add(gsonRequest);
+
+    }
 }
 
 

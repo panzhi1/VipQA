@@ -1,4 +1,4 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.network;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -10,6 +10,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.strangeman.vipqa.com.strangeman.entity.User;
+import com.strangeman.vipqa.com.strangeman.utils.GsonRequest;
+import com.strangeman.vipqa.com.strangeman.utils.QuestionMethod;
+import com.strangeman.vipqa.com.strangeman.utils.VolleyCallback;
+import com.strangeman.vipqa.com.strangeman.entity.Answer;
+import com.strangeman.vipqa.com.strangeman.entity.Question;
 
 import java.util.HashMap;
 
@@ -30,7 +36,7 @@ public class PostInfo {
         builder=new GsonBuilder();
         gson=builder.create();
     }
-    public void sendQuestion(final VolleyCallback<QuestionMethod> callback,Question question){
+    public void sendQuestion(final VolleyCallback<QuestionMethod> callback, Question question){
         String  questionJson=gson.toJson(question, Question.class);
         HashMap<String,String>hashMap=new HashMap<>();
         hashMap.put("question",questionJson);
@@ -77,5 +83,27 @@ public class PostInfo {
         mqueue.add(gsonRequest);
 
 
+    }
+    public void LoginIn(final VolleyCallback<User> callback, String userId, String passwd){
+        HashMap<String,String>hashMap=new HashMap<>();
+        hashMap.put("userId",userId);
+        hashMap.put("passwd",passwd);
+
+        GsonRequest<User> gsonRequest = new GsonRequest<User>(Request.Method.POST,
+                "http://www.strange-man.cn/pz/LoginInServlet",User.class ,hashMap,
+                new Response.Listener<User>() {
+                    @Override
+                    public void onResponse(User response) {
+                        callback.onSuccess(response);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "网络出现问题", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mqueue.add(gsonRequest);
     }
 }

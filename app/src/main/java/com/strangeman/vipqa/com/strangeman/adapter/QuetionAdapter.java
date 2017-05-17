@@ -1,4 +1,4 @@
-package com.strangeman.vipqa;
+package com.strangeman.vipqa.com.strangeman.adapter;
 
 import android.content.Context;
 import android.text.TextPaint;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.strangeman.vipqa.R;
+import com.strangeman.vipqa.com.strangeman.entity.Question;
 
 import java.util.List;
 
