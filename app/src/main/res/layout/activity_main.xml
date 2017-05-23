@@ -18,27 +18,26 @@
                     android:id="@+id/goods"
                     android:layout_width="match_parent"
                     android:layout_height="450dp"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/alienware"/>
+                    android:layout_alignParentTop="true" />
 
                 <TextView
-                    android:id="@+id/goodsNote1"
+                    android:id="@+id/goodsNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/goods"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/note1"
+                    android:textSize="15dp"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/goodsNote2"
+                    android:id="@+id/goodsPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/goodsNote1"
+                    android:layout_below="@+id/goodsNote"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/note2"
-                    android:textColor="@color/black"/>
+                    android:textSize="18dp"
+                    android:textColor="@color/pink"/>
             </RelativeLayout>
 
             <RelativeLayout

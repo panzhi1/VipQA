@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:padding="10dp"
+    android:background="?attr/colorPrimary">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/icon_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/icon"
+       android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/welcome_you"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcomeyou"
+        android:layout_above="@+id/login"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/identity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/welcome_you"
+        android:layout_marginBottom="10dp"
+        android:text="@string/visitorIdentity"
+        android:layout_centerHorizontal="true"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:minWidth="20dp"
+        android:minHeight="20dp"
+        android:textColor="@color/pink"
+        android:text="@string/login"/>
+
+</RelativeLayout>

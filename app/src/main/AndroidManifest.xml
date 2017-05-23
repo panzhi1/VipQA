@@ -10,23 +10,44 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
-        <activity android:name=".com.strangeman.activitys.MainActivity"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".activitys.MainActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_START" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activitys.ThisQAActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:launchMode="singleTask"
+            android:label="@string/ask">
+        </activity>
+
+        <activity android:name=".activitys.AllQAActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"
+            android:launchMode="singleTask"
+            android:label="@string/ask">
+        </activity>
+
+        <activity android:name=".activitys.AllProductActivity"
+            android:launchMode="singleTask"
+            android:label="@string/allproducts">
+        </activity>
+
+        <activity android:name=".activitys.WelcomeActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".com.strangeman.activitys.ThisQAActivity"
-            android:windowSoftInputMode="adjustResize|stateVisible"
+
+        <activity android:name=".activitys.LoginActivity"
             android:launchMode="singleTask"
-            ></activity>
-        <activity android:name=".com.strangeman.activitys.AllQAActivity"
-            android:windowSoftInputMode="adjustResize|stateVisible"
-            android:launchMode="singleTask"
-           ></activity>
+            android:label="@string/userLogin"/>
+
     </application>
 
 </manifest>

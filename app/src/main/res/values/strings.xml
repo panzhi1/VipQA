@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">VipQuery</string>
-    <string name="note1">Dell/戴尔 Alienware 外星人 17</string>
-    <string name="note2">ALW17C-1848new眼动仪游戏笔记本</string>
+    <string name="note">Dell/戴尔 Alienware 外星人 17</string>
+    <string name="price">￥31999</string>
     <string name="ask">问大家</string>
     <string name="showAll">查看全部问题</string>
     <string name="newQuestion">向已买的人提问，4-40个字</string>
-    <string name="newAnswer">回答该问题，4-40个子</string>
-    <string name="aboutGoods">关于Dell/戴尔 Alienware...的全部问题</string>
+    <string name="newAnswer">回答该问题，4-40个字</string>
+    <string name="aboutGoods">的全部问题</string>
     <string name="send">发送</string>
     <string name="query">查看</string>
     <string name="questionDetail">问题详情</string>
@@ -15,4 +15,17 @@
     <string name="nonequestion">请输入非空问题</string>
     <string name="noneanswer">请输入非空答案</string>
     <string name="answerfirst">我来回答</string>
+    <string name="keyword">集思广益 愉快购物</string>
+    <string name="visitor">游客</string>
+    <string name="visitorIdentity">你好，游客</string>
+    <string name="welcomeyou">欢迎来到唯品会问答</string>
+    <string name="allproducts">商品列表</string>
+    <string name="login">登录</string>
+    <string name="logout">注销</string>
+    <string name="myOrder">我的订单</string>
+    <string name="myQuestion">我的提问</string>
+    <string name="myAnswer">我的回答</string>
+    <string name="inputAccount">请输入账号，只含数字或字母，6-10位</string>
+    <string name="inputPassword">请输入密码，只含数字或字母，6-10位</string>
+    <string name="userLogin">唯品会用户登录</string>
 </resources>
