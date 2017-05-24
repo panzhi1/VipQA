@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.strangeman.vipqa.R;
@@ -30,6 +31,7 @@ import com.strangeman.vipqa.utils.ProductMethod;
 import com.strangeman.vipqa.utils.VolleyCallback;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,6 +51,9 @@ public class AllProductActivity extends AppCompatActivity {
     private TextView textView;
     private CircleImageView circleImageView;
     private User user;
+    private TextView score;
+
+    private static long time=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +129,7 @@ public class AllProductActivity extends AppCompatActivity {
         headview = navView.inflateHeaderView(R.layout.nav_header);
         button = (Button) headview.findViewById(R.id.login);
         textView = (TextView) headview.findViewById(R.id.identity);
+        score=(TextView)headview.findViewById(R.id.score);
         circleImageView=(CircleImageView)headview.findViewById(R.id.icon_image);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +145,7 @@ public class AllProductActivity extends AppCompatActivity {
 
                     button.setText(getString(R.string.login));
                     textView.setText(getString(R.string.visitorIdentity));
+                    score.setText(getString(R.string.mustLogin));
                     circleImageView.setImageResource(R.drawable.vipuser);
                 }
             }
@@ -147,6 +154,7 @@ public class AllProductActivity extends AppCompatActivity {
         if (user != null) {
             button.setText(getString(R.string.logout));
             textView.setText(user.getUserName());
+            score.setText(getString(R.string.mustLogin));
             Glide.with(this).load(user.getUserPhoto()).into(circleImageView);
         }
 
@@ -217,9 +225,20 @@ public class AllProductActivity extends AppCompatActivity {
 
             button.setText(getString(R.string.logout));
             textView.setText(user.getUserName());
+            score.setText(getString(R.string.score)+"  "+String.valueOf(user.getIntegral()));
             Glide.with(this).load(user.getUserPhoto()).into(circleImageView);
 
 
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis()-time<2000)
+            finish();
+        else{
+            time=System.currentTimeMillis();
+            Toast.makeText(this,"再按一次返回键退出",Toast.LENGTH_SHORT).show();
         }
     }
 }

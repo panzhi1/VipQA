@@ -45,6 +45,7 @@ public class QuetionAdapter extends ArrayAdapter<Question> {
             viewHolder.showAllA = (TextView) view.findViewById(R.id.showAllA);
             viewHolder.askDate = (TextView) view.findViewById(R.id.askDate);
             viewHolder.lastLine = (ImageView) view.findViewById(R.id.lastLine);
+            viewHolder.accept= (TextView) view.findViewById(R.id.accept);
             view.setTag(viewHolder);
         }
         else {
@@ -53,9 +54,18 @@ public class QuetionAdapter extends ArrayAdapter<Question> {
         }
         viewHolder.quetion.setText(thisQuestion.getContent());
         if((thisQuestion.getAnswerList()!=null)&&(thisQuestion.getAnswerList().size()!=0)){
+            if(thisQuestion.getBestAnswer()!=null&&thisQuestion.getBestAnswer()!=""){
+                viewHolder.accept.setText("已采纳");
+            }
             viewHolder.answer.setText(thisQuestion.getAnswerList().get(0).getContent());
             viewHolder.showAllA.setText(context.getResources().getString(R.string.query)+thisQuestion.getAnswerList().size()+context.getResources().getString(R.string.description));
-        }else viewHolder.showAllA.setText(context.getResources().getString(R.string.answerfirst));
+        }
+        else {
+            viewHolder.answer.setText("");
+            viewHolder.accept.setText("");
+            viewHolder.showAllA.setText(context.getResources().getString(R.string.answerfirst));
+        }
+
         viewHolder.askDate.setText(thisQuestion.getAskDate());
         return view;
     }
@@ -69,5 +79,6 @@ public class QuetionAdapter extends ArrayAdapter<Question> {
         TextView showAllA;
         TextView askDate;
         ImageView lastLine;
+        TextView accept;
     }
 }

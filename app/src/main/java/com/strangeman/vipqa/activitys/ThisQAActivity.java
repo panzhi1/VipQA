@@ -11,7 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,7 +31,7 @@ import com.strangeman.vipqa.entity.Question;
 import com.strangeman.vipqa.entity.User;
 import com.strangeman.vipqa.network.MyRequest;
 import com.strangeman.vipqa.network.PostInfo;
-import com.strangeman.vipqa.utils.QuestionMethod;
+import com.strangeman.vipqa.entity.PopupList;
 import com.strangeman.vipqa.utils.VolleyCallback;
 
 import java.util.ArrayList;
@@ -54,6 +57,7 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
     private EditText inputAnswer;
     private Button this_send;
     private String userId;
+    private String user_ID;
     private Answer answer;
     private DrawerLayout mDrawerLayout;
     private SwipeRefreshLayout swipeRefresh;
@@ -63,6 +67,12 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
     private TextView textView;
     private CircleImageView circleImageView;
     private User user;
+    private List<String> popupMenuItemList;
+    private float mRawX;
+    private float mRawY;
+    private ListView listView;
+    private TextView score;
+    private String bestAnswerId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +91,12 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         this_send=(Button)findViewById(R.id.this_send);
         this_send.setOnClickListener(this);
         answerList=new ArrayList<>();
-        adapter = new AnswerAdapter(ThisQAActivity.this, R.layout.answer_item, answerList);
-        ListView listView = (ListView) findViewById(R.id.AllA);
+
+        Intent intent=getIntent();
+        bestAnswerId=intent.getStringExtra("bestAnswerId");
+        adapter = new AnswerAdapter(ThisQAActivity.this, R.layout.answer_item, answerList,bestAnswerId);
+
+        listView = (ListView) findViewById(R.id.AllA);
         listView.setAdapter(adapter);
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -98,6 +112,7 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         headview = navView.inflateHeaderView(R.layout.nav_header);
         button = (Button) headview.findViewById(R.id.login);
         textView = (TextView) headview.findViewById(R.id.identity);
+        score=(TextView)headview.findViewById(R.id.score);
         circleImageView = (CircleImageView) headview.findViewById(R.id.icon_image);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +124,11 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
                     CheckLoginState.setUser(null);
                     button.setText(getString(R.string.login));
                     textView.setText(getString(R.string.visitorIdentity));
+                    score.setText(getString(R.string.mustLogin));
                     circleImageView.setImageResource(R.drawable.vipuser);
+
+                    popupMenuItemList.clear();
+                    popupMenuItemList.add(getString(R.string.prosecute));
                 }
             }
         });
@@ -125,6 +144,73 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         if(intent!=null)
         questionId=intent.getStringExtra("questionId");
         initQuestionInfo();
+        popupMenuItemList = new ArrayList<>();
+//        popupMenuItemList.add(getString(R.string.accept));
+//        popupMenuItemList.add(getString(R.string.prosecute));
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mRawX = event.getRawX();
+                mRawY = event.getRawY();
+                return false;
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ThisQAActivity.this, getString(R.string.tip), Toast.LENGTH_SHORT).show();
+            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final PopupList popupList = new PopupList(view.getContext());
+                popupList.showPopupListWindow(view, position, mRawX, mRawY, popupMenuItemList, new PopupList.PopupListListener() {
+                    @Override
+                    public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
+                        return true;
+                    }
+
+
+                    @Override
+                    public void onPopupListClick(View contextView, int contextPosition, int position) {
+
+                        Answer thisAnswer = answerList.get(contextPosition);
+                        if(user_ID.equals(CheckLoginState.getUser().getUserId()))
+                        if(0==position){
+                            Toast.makeText(ThisQAActivity.this,"举报成功",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(1==position){
+                            postInfo.Adoption(thisAnswer.getQuestionId(), thisAnswer.getAnswerId());
+                            adapter.setBestAnswer(thisAnswer.getAnswerId());
+                            Toast.makeText(ThisQAActivity.this,"采纳成功",Toast.LENGTH_SHORT).show();
+                            popupMenuItemList.clear();
+                            popupMenuItemList.add(getString(R.string.prosecute));
+                            refresh();
+                        }
+//                        Answer thisAnswer = answerList.get(contextPosition);
+//                        if (user_ID!=null&&user_ID.equals(CheckLoginState.getUser().getUserId())) {
+//                            if (position == 0) {
+//                                if(bestAnswerId!=null&&!"".equals(bestAnswerId)) {
+//                                    Toast.makeText(ThisQAActivity.this,"已采纳过最佳答案",Toast.LENGTH_SHORT).show();
+//                                }
+//                                else {
+//                                    postInfo.Adoption(thisAnswer.getQuestionId(), thisAnswer.getAnswerId());
+//                                    Toast.makeText(contextView.getContext(), getString(R.string.backInfo), Toast.LENGTH_SHORT).show();
+//                                }
+//
+//                            }
+//                            if (position == 1) {
+//
+//                            }
+//                        }
+//                        else
+//                            Toast.makeText(ThisQAActivity.this,"你没有权限采纳",Toast.LENGTH_LONG).show();
+                    }
+                });
+                return true;
+            }
+        });
     }
 
     private void refresh() {
@@ -170,6 +256,14 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onSuccess(Question result) {
                 if(result!=null){
+                    user_ID=result.getUserId();
+                    if(user_ID!=null&&CheckLoginState.getUser()!=null&&
+                            user_ID.equals(CheckLoginState.getUser().getUserId())&&
+                            (bestAnswerId==null||"".equals(bestAnswerId))){
+                        popupMenuItemList.clear();
+                        popupMenuItemList.add(getString(R.string.prosecute));
+                        popupMenuItemList.add(getString(R.string.accept));
+                    }
                     if(result.getAnswerList()!=null) {
                         this_answer.setText(result.getAnswerList().size() + ThisQAActivity.this.getString(R.string.description));
                         for (int i = 0; i < result.getAnswerList().size(); i++) {
@@ -193,7 +287,7 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
                     return;
                 }
                 userId=CheckLoginState.getUser().getUserId();
-                if(inputAnswer.getText()!=null&&inputAnswer.getText().toString()!=null&&questionId!=null&&userId!=null) {
+                if(inputAnswer.getText()!=null&&!inputAnswer.getText().toString().equals("")&&questionId!=null&&userId!=null) {
                     answer = new Answer(questionId, null, userId, inputAnswer.getText().toString(),null);
                     postInfo.sendAnswer(new VolleyCallback<Question>() {
                         @Override
@@ -227,6 +321,9 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()){
             case R.id.user:
                 mDrawerLayout.openDrawer(GravityCompat.START);
+                inputAnswer.setCursorVisible(false);
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(inputAnswer.getWindowToken(), 0);
                 break;
             case android.R.id.home:
                 Intent intent = new Intent(ThisQAActivity.this,AllQAActivity.class);
@@ -248,9 +345,19 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         if(user!=null){
             button.setText(getString(R.string.logout));
             textView.setText(user.getUserName());
+            score.setText(getString(R.string.score)+"  "+String.valueOf(user.getIntegral()));
             Glide.with(this).load(user.getUserPhoto()).into(circleImageView);
-
-
+        }
+        if(user_ID!=null&&CheckLoginState.getUser()!=null&&
+                user_ID.equals(CheckLoginState.getUser().getUserId())&&
+                (bestAnswerId==null||"".equals(bestAnswerId))){
+            popupMenuItemList.clear();
+            popupMenuItemList.add(getString(R.string.prosecute));
+            popupMenuItemList.add(getString(R.string.accept));
+        }
+        else{
+            popupMenuItemList.clear();
+            popupMenuItemList.add(getString(R.string.prosecute));
         }
     }
 

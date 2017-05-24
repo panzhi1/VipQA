@@ -5,6 +5,7 @@ public class User {
 	private String password;
 	private String userName;
 	private String userPhoto;
+	private int integral;
 	
 	public User(String userId, String password) {
 		this.userId = userId;
@@ -26,5 +27,11 @@ public class User {
 	}
 	public String getUserPhoto() {
 		return userPhoto;
+	}
+	public int getIntegral() {
+		return integral;
+	}
+	public void setIntegral(int integral) {
+		this.integral = integral;
 	}
 }

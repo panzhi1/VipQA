@@ -62,6 +62,16 @@
         android:textColor="@color/black"/>
 
     <TextView
+        android:id="@+id/accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ask"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/answer"
+        android:textColor="@color/pink"/>
+
+    <TextView
         android:id="@+id/showAllA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

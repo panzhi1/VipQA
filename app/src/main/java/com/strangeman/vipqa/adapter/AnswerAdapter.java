@@ -19,10 +19,22 @@ import java.util.List;
 
 public class AnswerAdapter extends ArrayAdapter<Answer> {
     private int resourceId;
+    private String bestAnswer;
 
     public AnswerAdapter(Context context, int resource, List<Answer> objects) {
         super(context, resource, objects);
         resourceId = resource;
+    }
+
+    public AnswerAdapter(Context context,int resource,
+                         List<Answer> objects,String bestAnswer){
+        super(context,resource,objects);
+        resourceId=resource;
+        this.bestAnswer=bestAnswer;
+    }
+
+    public void setBestAnswer(String bestAnswer){
+        this.bestAnswer=bestAnswer;
     }
 
     @Override
@@ -38,6 +50,7 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
             viewHolder.answerDate = (TextView) view.findViewById(R.id.answerDate);
             viewHolder.content= (TextView) view.findViewById(R.id.content);
             viewHolder.lastLine = (ImageView) view.findViewById(R.id.answer_lastLine);
+            viewHolder.bestAnswer= (TextView) view.findViewById(R.id.bestAnswer);
             view.setTag(viewHolder);
         }
         else {
@@ -45,6 +58,9 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
             viewHolder = (ViewHolder) view.getTag();
         }
         if(thisAnswer!=null){
+            if(thisAnswer.getAnswerId().equals(bestAnswer)){
+                viewHolder.bestAnswer.setText("最佳答案");
+            }
             viewHolder.userId.setText(thisAnswer.getUserId());
             viewHolder.answerDate.setText(thisAnswer.getAnswerDate());
             viewHolder.content.setText(thisAnswer.getContent());
@@ -58,5 +74,6 @@ public class AnswerAdapter extends ArrayAdapter<Answer> {
         TextView answerDate;
         TextView content;
         ImageView lastLine;
+        TextView bestAnswer;
     }
 }

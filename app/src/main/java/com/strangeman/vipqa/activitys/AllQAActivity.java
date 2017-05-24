@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,6 +62,8 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
     private TextView textView;
     private CircleImageView circleImageView;
     private User user;
+    private ListView listView;
+    private TextView score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +96,7 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
         });
         adapter = new QuetionAdapter(AllQAActivity.this, R.layout.question_item, questionList);
         initQuestion();
-        ListView listView = (ListView) findViewById(R.id.allQA);
+        listView = (ListView) findViewById(R.id.allQA);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,12 +104,14 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
                 Question question = questionList.get(position);
                 Intent intent = new Intent(AllQAActivity.this, ThisQAActivity.class);
                 intent.putExtra("questionId", question.getQuestionId());
+                intent.putExtra("bestAnswerId",question.getBestAnswer());
                 startActivity(intent);
             }
         });
         headview = navView.inflateHeaderView(R.layout.nav_header);
         button = (Button) headview.findViewById(R.id.login);
         textView = (TextView) headview.findViewById(R.id.identity);
+        score=(TextView)headview.findViewById(R.id.score);
         circleImageView = (CircleImageView) headview.findViewById(R.id.icon_image);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +128,7 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
 
                     button.setText(getString(R.string.login));
                     textView.setText(getString(R.string.visitorIdentity));
+                    score.setText(getString(R.string.mustLogin));
                     circleImageView.setImageResource(R.drawable.vipuser);
                 }
             }
@@ -131,6 +137,7 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
         if (user != null) {
             button.setText(getString(R.string.logout));
             textView.setText(user.getUserName());
+            score.setText(getString(R.string.mustLogin));
             Glide.with(this).load(user.getUserPhoto()).into(circleImageView);
         }
     }
@@ -199,7 +206,6 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
                     postInfo.sendQuestion(new VolleyCallback<QuestionMethod>() {
                         @Override
                         public void onSuccess(QuestionMethod result) {
-                            Toast.makeText(AllQAActivity.this,result.getQuestions().size()+"",Toast.LENGTH_LONG).show();
                             if(result.getQuestions()!=null){
                                 questionList.clear();
                                 for(int i=0;i<result.getQuestions().size();i++) {
@@ -207,8 +213,13 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
 
                                 }
                                 adapter.notifyDataSetChanged();
+                                listView.setSelection(questionList.size());
                                 inputQuestion.setText("");
                                 inputQuestion.setCursorVisible(false);
+                                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+
+                                imm.hideSoftInputFromWindow(inputQuestion.getWindowToken(), 0);
+
 
                             }
 
@@ -236,7 +247,9 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.user:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-
+                inputQuestion.setCursorVisible(false);
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(inputQuestion.getWindowToken(), 0);
                 break;
         }
         return true;
@@ -248,11 +261,12 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
         if(user!=null){
             button.setText(getString(R.string.logout));
             textView.setText(user.getUserName());
+            score.setText(getString(R.string.score)+"  "+String.valueOf(user.getIntegral()));
             Glide.with(this).load(user.getUserPhoto()).into(circleImageView);
-
-
         }
+        refresh();
     }
-    }
+
+}
 
 

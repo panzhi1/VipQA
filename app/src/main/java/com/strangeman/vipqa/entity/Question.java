@@ -1,59 +1,57 @@
 package com.strangeman.vipqa.entity;
 
-/**
- * Created by panzhi on 2017/5/8.
- */
-
 import java.util.List;
 
 public class Question {
-    private String questionId;
-    private String content;
-    private String productId;
-    private String userId;
-    private String askDate;
-    private List<Answer> answerList;
+	private String questionId;
+	private String content;
+	private String productId;
+	private String userId;
+	private String askDate;
+	private List<Answer> answerList;
+	private String bestAnswer;
+	
+	public Question(String questionId, String content, String productId, String userId,String askDate) {
+		this.questionId = questionId;
+		this.content = content;
+		this.productId = productId;
+		this.userId = userId;
+		this.askDate=askDate;
+	}
 
-    public Question(){
+	public String getQuestionId() {
+		return questionId;
+	}
 
-    }
-    public Question(String questionId, String content, String productId, String userId,String askDate) {
-        this.questionId = questionId;
-        this.content = content;
-        this.productId = productId;
-        this.userId = userId;
-        this.askDate=askDate;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public String getQuestionId() {
-        return questionId;
-    }
+	public String getProductId() {
+		return productId;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public String getUserId() {
+		return userId;
+	}
+	
+	public String getAskDate(){
+		return askDate;
+	}
+	
+	public List<Answer> getAnswerList() {
+		return answerList;
+	}
 
-    public String getProductId() {
-        return productId;
-    }
+	public void setAnswerList(List<Answer> answers) {
+		this.answerList = answers;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public String getBestAnswer() {
+		return bestAnswer;
+	}
 
-    public String getAskDate(){
-        return askDate;
-    }
-
-    public List<Answer> getAnswerList() {
-        return answerList;
-    }
-
-    public void setAnswerList(List<Answer> answers) {
-        this.answerList = answers;
-    }
-
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
-    }
+	public void setBestAnswer(String bestAnswer) {
+		this.bestAnswer = bestAnswer;
+	}
 }

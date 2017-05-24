@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VipQuery</string>
+    <string name="app_name">VipQA</string>
     <string name="note">Dell/戴尔 Alienware 外星人 17</string>
     <string name="price">￥31999</string>
     <string name="ask">问大家</string>
@@ -28,4 +28,10 @@
     <string name="inputAccount">请输入账号，只含数字或字母，6-10位</string>
     <string name="inputPassword">请输入密码，只含数字或字母，6-10位</string>
     <string name="userLogin">唯品会用户登录</string>
+    <string name="accept">采纳</string>
+    <string name="prosecute">举报</string>
+    <string name="tip">请登陆后，长按选择采纳或举报</string>
+    <string name="backInfo">采纳成功，下拉刷新后可见</string>
+    <string name="score">问答积分</string>
+    <string name="mustLogin">问答积分：登录后可见</string>
 </resources>
