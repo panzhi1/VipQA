@@ -43,7 +43,7 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
         GsonRequest<QuestionPreview> gsonRequest = new GsonRequest<QuestionPreview>(com.android.volley.Request.Method.POST,
-                "http://www.strange-man.cn/pz/PreviewServlet",QuestionPreview.class ,hashMap,
+                "http://123.206.115.152/pz/PreviewServlet",QuestionPreview.class ,hashMap,
                 new Response.Listener<QuestionPreview>() {
                     @Override
                     public void onResponse(QuestionPreview response) {
@@ -66,7 +66,7 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("productId",productId);
         GsonRequest<QuestionMethod> gsonRequest = new GsonRequest<QuestionMethod>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/AllQuestionServlet",QuestionMethod.class ,hashMap,
+                "http://123.206.115.152/pz/AllQuestionServlet",QuestionMethod.class ,hashMap,
                 new Response.Listener<QuestionMethod>() {
                     @Override
                     public void onResponse(QuestionMethod response) {
@@ -88,7 +88,7 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("questionId",questionId);
         GsonRequest<Question> gsonRequest = new GsonRequest<Question>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/QuestionInfoServlet",Question.class ,hashMap,
+                "http://123.206.115.152/pz/QuestionInfoServlet",Question.class ,hashMap,
                 new Response.Listener<Question>() {
                     @Override
                     public void onResponse(Question response) {
@@ -109,7 +109,7 @@ public class MyRequest {
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("userId",userId);
         GsonRequest<OrderMethod> gsonRequest = new GsonRequest<>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/AllOrderServlet",OrderMethod.class ,hashMap,
+                "http://123.206.115.152/pz/AllOrderServlet",OrderMethod.class ,hashMap,
                 new Response.Listener<OrderMethod>() {
                     @Override
                     public void onResponse(OrderMethod response) {
@@ -130,7 +130,7 @@ public class MyRequest {
     public void getAllProduct( final VolleyCallback<ProductMethod> callback){
         HashMap<String, String> hashMap = new HashMap<>();
         GsonRequest<ProductMethod> gsonRequest = new GsonRequest<ProductMethod>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/AllProductServlet",ProductMethod.class ,hashMap,
+                "http://123.206.115.152/pz/AllProductServlet",ProductMethod.class ,hashMap,
                 new Response.Listener<ProductMethod>() {
                     @Override
                     public void onResponse(ProductMethod response) {

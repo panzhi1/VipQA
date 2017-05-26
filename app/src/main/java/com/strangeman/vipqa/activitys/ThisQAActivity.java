@@ -73,6 +73,7 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
     private ListView listView;
     private TextView score;
     private String bestAnswerId;
+    private String questionToUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,7 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
 
         Intent intent=getIntent();
         bestAnswerId=intent.getStringExtra("bestAnswerId");
+        questionToUser=intent.getStringExtra("questionToUser");
         adapter = new AnswerAdapter(ThisQAActivity.this, R.layout.answer_item, answerList,bestAnswerId);
 
         listView = (ListView) findViewById(R.id.AllA);
@@ -141,8 +143,9 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
         myRequest=new MyRequest(this);
         postInfo=new PostInfo(this);
         intent=getIntent();
-        if(intent!=null)
-        questionId=intent.getStringExtra("questionId");
+        if(intent!=null) {
+            questionId = intent.getStringExtra("questionId");
+        }
         initQuestionInfo();
         popupMenuItemList = new ArrayList<>();
 //        popupMenuItemList.add(getString(R.string.accept));
@@ -181,12 +184,17 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(ThisQAActivity.this,"举报成功",Toast.LENGTH_SHORT).show();
                         }
                         else if(1==position){
-                            postInfo.Adoption(thisAnswer.getQuestionId(), thisAnswer.getAnswerId());
-                            adapter.setBestAnswer(thisAnswer.getAnswerId());
-                            Toast.makeText(ThisQAActivity.this,"采纳成功",Toast.LENGTH_SHORT).show();
-                            popupMenuItemList.clear();
-                            popupMenuItemList.add(getString(R.string.prosecute));
-                            refresh();
+                            if(thisAnswer.getUserId().equals(CheckLoginState.getUser().getUserId())){
+                                Toast.makeText(ThisQAActivity.this,"不能采纳自己的答案哦",Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                postInfo.Adoption(thisAnswer.getQuestionId(), thisAnswer.getAnswerId());
+                                adapter.setBestAnswer(thisAnswer.getAnswerId());
+                                Toast.makeText(ThisQAActivity.this, "采纳成功", Toast.LENGTH_SHORT).show();
+                                popupMenuItemList.clear();
+                                popupMenuItemList.add(getString(R.string.prosecute));
+                                refresh();
+                            }
                         }
 //                        Answer thisAnswer = answerList.get(contextPosition);
 //                        if (user_ID!=null&&user_ID.equals(CheckLoginState.getUser().getUserId())) {
@@ -302,6 +310,9 @@ public class ThisQAActivity extends AppCompatActivity implements View.OnClickLis
                                     adapter.notifyDataSetChanged();
                                     inputAnswer.setText("");
                                     inputAnswer.setCursorVisible(false);
+                                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+
+                                    imm.hideSoftInputFromWindow(inputAnswer.getWindowToken(), 0);
                                 }
                             }
 

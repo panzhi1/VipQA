@@ -47,7 +47,7 @@ public class PostInfo {
 
 
         GsonRequest<QuestionMethod> gsonRequest = new GsonRequest<QuestionMethod>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/AskQuestionServlet",QuestionMethod.class ,hashMap,
+                "http://123.206.115.152/pz/AskQuestionServlet",QuestionMethod.class ,hashMap,
                 new Response.Listener<QuestionMethod>() {
                     @Override
                     public void onResponse(QuestionMethod response) {
@@ -70,7 +70,7 @@ public class PostInfo {
         hashMap.put("answer",answerJson);
 
         GsonRequest<Question> gsonRequest = new GsonRequest<Question>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/AnswerServlet",Question.class ,hashMap,
+                "http://123.206.115.152/pz/AnswerServlet",Question.class ,hashMap,
                 new Response.Listener<Question>() {
                     @Override
                     public void onResponse(Question response) {
@@ -94,7 +94,7 @@ public class PostInfo {
         hashMap.put("passwd",passwd);
 
         GsonRequest<User> gsonRequest = new GsonRequest<User>(Request.Method.POST,
-                "http://www.strange-man.cn/pz/LoginInServlet",User.class ,hashMap,
+                "http://123.206.115.152/pz/LoginInServlet",User.class ,hashMap,
                 new Response.Listener<User>() {
                     @Override
                     public void onResponse(User response) {
@@ -112,7 +112,7 @@ public class PostInfo {
     }
     public void Adoption(final String questionId, final String answerId){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://www.strange-man.cn/pz/AdoptionServlet" , new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"http://123.206.115.152/pz/AdoptionServlet" , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

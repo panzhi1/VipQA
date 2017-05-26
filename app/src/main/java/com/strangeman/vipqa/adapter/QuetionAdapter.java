@@ -54,8 +54,11 @@ public class QuetionAdapter extends ArrayAdapter<Question> {
         }
         viewHolder.quetion.setText(thisQuestion.getContent());
         if((thisQuestion.getAnswerList()!=null)&&(thisQuestion.getAnswerList().size()!=0)){
-            if(thisQuestion.getBestAnswer()!=null&&thisQuestion.getBestAnswer()!=""){
+            if(thisQuestion.getBestAnswer()!=null&&!thisQuestion.getBestAnswer().equals("")){
                 viewHolder.accept.setText("已采纳");
+            }
+            else{
+                viewHolder.accept.setText("");
             }
             viewHolder.answer.setText(thisQuestion.getAnswerList().get(0).getContent());
             viewHolder.showAllA.setText(context.getResources().getString(R.string.query)+thisQuestion.getAnswerList().size()+context.getResources().getString(R.string.description));

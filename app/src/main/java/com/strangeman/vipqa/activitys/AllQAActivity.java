@@ -105,6 +105,7 @@ public class AllQAActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(AllQAActivity.this, ThisQAActivity.class);
                 intent.putExtra("questionId", question.getQuestionId());
                 intent.putExtra("bestAnswerId",question.getBestAnswer());
+//                intent.putExtra("ToUser",question.getUserId());
                 startActivity(intent);
             }
         });
